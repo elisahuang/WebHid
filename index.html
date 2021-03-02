@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="../sakura.css" />
+  <title>Web HID</title>
+  <script src="hid-util.js"></script>
+  <style>
+    p.warning {
+      color: red;
+    }
+
+    p.error {
+      color: red;
+      font-weight: bold;
+    }
+
+    label.radio {
+      display: inline;
+    }
+
+    input:invalid {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <p>
+    <span id="status"></span>
+  </p>
+  <p>
+    <label for="vid">Vendor ID (hex):</label>
+    <input list="vendor_ids" type="text" name="vid" id="vid" maxlength="6" size="8" pattern="0x[A-Fa-f0-9]{1,4}" />
+    <datalist id="vendor_ids">
+      <option value="0x0483">STM32 HID Device</option>
+    </datalist>
+  </p>
+  <p>
+    <button id="connect">Connect</button>
+  </p>
+</body>
+</html>
