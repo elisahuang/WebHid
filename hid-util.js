@@ -1,8 +1,10 @@
 
 var usbDevice = null;
 let outputReport = new Uint8Array([42]);
+var statusDisplay;  
 document.addEventListener("DOMContentLoaded", async() => {
   let btnConnect = document.getElementById("connect");
+  statusDisplay = document.getElementById("status");
   btnConnect.addEventListener("click", connectHID);
  /* let devices = await navigator.registerProtocolHandler.getDevices();
   devices.array.forEach(devices => {
@@ -10,8 +12,13 @@ document.addEventListener("DOMContentLoaded", async() => {
   });*/
 });
 const connectHID = async () => {
-  console.log("connectHID");
-  const filters = [];
+  if ("hid" in navigator) 
+    statusDisplay.textContent = "The WebHID API is supported"; 
+  else statusDisplay.textContent = "The WebHID API is not supported";
+  //console.log("connectHID");
+  //alert("I am an alert box!");
+  //statusDisplay.textContent = "connectHID"
+   const filters = [];
   try{
     usbDevice = await navigator.hid.requestDevice({ filters: filters });
     if (usbDevice){
@@ -20,6 +27,7 @@ const connectHID = async () => {
     }
     else{
       console.log("There is no device.");
+      statusDisplay.textContent = "There is no device";
     }
   }catch(error){
     console.error(error.name, error.message);
